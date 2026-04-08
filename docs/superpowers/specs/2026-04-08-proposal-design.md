@@ -71,8 +71,10 @@ An end-to-end analytics engineering project targeting the **Baseball Operations 
 - Foreign keys: player_id, game_id, team_id, season_id
 
 **`fct_player_season_stats`** — aggregated season-level performance
-- Traditional stats: AVG, OBP, SLG, OPS, ERA, WHIP
-- Advanced metrics: wRC+, xwOBA, FIP, WAR, barrel rate
+- Batting stats: AVG, OBP, SLG, OPS
+- Pitching stats (for pitchers): ERA, WHIP, K/9
+- Advanced metrics: wRC+ and xwOBA (batters), FIP (pitchers), WAR (both), barrel rate (batters)
+- A `player_type` field (batter/pitcher) to distinguish stat applicability
 - Foreign keys: player_id, team_id, season_id
 
 ### Dimension Tables
