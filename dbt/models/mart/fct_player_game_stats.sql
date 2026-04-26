@@ -1,6 +1,11 @@
-with game_logs as (
+with games as (
+    select game_id from {{ ref('stg_games') }}
+),
+
+game_logs as (
     select * from {{ ref('stg_game_logs') }}
     where player_type = 'batter'
+    and game_id in (select game_id from games)
 ),
 
 statcast_game as (

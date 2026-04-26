@@ -15,6 +15,10 @@ renamed as (
         status,
         season
     from source
+    qualify row_number() over (
+        partition by game_id
+        order by game_date desc
+    ) = 1
 )
 
 select * from renamed

@@ -29,6 +29,10 @@ renamed as (
         pitching_home_runs,
         pitches
     from source
+    qualify row_number() over (
+        partition by player_id, game_id, player_type
+        order by game_date desc
+    ) = 1
 )
 
 select * from renamed
