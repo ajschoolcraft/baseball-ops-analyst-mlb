@@ -1,0 +1,94 @@
+version: 2
+
+models:
+  - name: dim_players
+    columns:
+      - name: player_id
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_teams
+    columns:
+      - name: team_id
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_seasons
+    columns:
+      - name: season_year
+        tests:
+          - unique
+          - not_null
+
+  - name: dim_games
+    columns:
+      - name: game_id
+        tests:
+          - unique
+          - not_null
+      - name: home_team_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_teams')
+              field: team_id
+      - name: away_team_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_teams')
+              field: team_id
+
+  - name: fct_player_game_stats
+    columns:
+      - name: player_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_players')
+              field: player_id
+      - name: game_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_games')
+              field: game_id
+      - name: team_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_teams')
+              field: team_id
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - player_id
+            - game_id
+
+  - name: fct_player_season_stats
+    columns:
+      - name: player_id
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_players')
+              field: player_id
+      - name: season
+        tests:
+          - not_null
+          - relationships:
+              to: ref('dim_seasons')
+              field: season_year
+      - name: player_type
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['batter', 'pitcher']
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - player_id
+            - season
+            - player_type
