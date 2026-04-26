@@ -24,6 +24,7 @@ def load_to_snowflake(df, table_name, schema="RAW"):
         cursor = conn.cursor()
         database = os.environ.get("SNOWFLAKE_DATABASE", "BASEBALL_ANALYTICS")
         cursor.execute(f"DROP TABLE IF EXISTS {database}.{schema}.{table_name}")
+        df.columns = [c.upper() for c in df.columns]
         write_pandas(
             conn,
             df,
