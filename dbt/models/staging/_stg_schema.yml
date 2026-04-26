@@ -1,0 +1,76 @@
+version: 2
+
+models:
+  - name: stg_players
+    columns:
+      - name: player_id
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_teams
+    columns:
+      - name: team_id
+        tests:
+          - unique
+          - not_null
+      - name: league
+        tests:
+          - accepted_values:
+              values: ['AL', 'NL']
+
+  - name: stg_games
+    columns:
+      - name: game_id
+        tests:
+          - unique
+          - not_null
+
+  - name: stg_game_logs
+    columns:
+      - name: player_id
+        tests:
+          - not_null
+      - name: game_id
+        tests:
+          - not_null
+      - name: player_type
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['batter', 'pitcher']
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - player_id
+            - game_id
+            - player_type
+
+  - name: stg_season_stats
+    columns:
+      - name: player_id
+        tests:
+          - not_null
+      - name: season
+        tests:
+          - not_null
+      - name: player_type
+        tests:
+          - not_null
+          - accepted_values:
+              values: ['batter', 'pitcher']
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          combination_of_columns:
+            - player_id
+            - season
+            - player_type
+
+  - name: stg_statcast
+    columns:
+      - name: batter_id
+        tests:
+          - not_null
+      - name: game_pk
+        tests:
+          - not_null
