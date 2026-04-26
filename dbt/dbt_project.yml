@@ -1,0 +1,16 @@
+name: 'baseball_analytics'
+version: '1.0.0'
+
+profile: 'baseball_analytics'
+
+model-paths: ["models"]
+macro-paths: ["macros"]
+
+models:
+  baseball_analytics:
+    staging:
+      +materialized: view
+      +schema: STAGING
+    mart:
+      +materialized: table
+      +schema: MART

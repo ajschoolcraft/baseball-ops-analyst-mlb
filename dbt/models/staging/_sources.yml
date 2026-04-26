@@ -1,0 +1,13 @@
+version: 2
+
+sources:
+  - name: baseball_raw
+    database: BASEBALL_ANALYTICS
+    schema: RAW
+    tables:
+      - name: PLAYERS
+      - name: TEAMS
+      - name: GAMES
+      - name: GAME_LOGS
+      - name: SEASON_STATS
+      - name: STATCAST
