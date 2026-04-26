@@ -206,5 +206,10 @@ marimo/_static/
 marimo/_lsp/
 __marimo__/
 
+# dbt
+dbt/dbt_packages/
+dbt/target/
+dbt/logs/
+
 # Project requirements
 docs/project_requirements-README.md
