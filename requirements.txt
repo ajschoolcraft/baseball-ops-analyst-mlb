@@ -1,0 +1,7 @@
+MLB-StatsAPI>=1.7
+pybaseball>=2.2
+snowflake-connector-python>=3.0
+pandas>=2.0
+python-dotenv>=1.0
+dbt-snowflake>=1.7
+dbt-utils>=1.1

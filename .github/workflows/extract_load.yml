@@ -1,0 +1,87 @@
+name: Extract, Load & Transform
+
+on:
+  schedule:
+    - cron: '0 10 * * *'  # Daily at 10 AM UTC / 6 AM ET
+  workflow_dispatch:
+    inputs:
+      seasons:
+        description: 'Comma-separated seasons to load (default: current year)'
+        required: false
+        default: '2026'
+
+env:
+  SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+  SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
+  SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+  SNOWFLAKE_DATABASE: BASEBALL_ANALYTICS
+  SNOWFLAKE_WAREHOUSE: BASEBALL_WH
+
+jobs:
+  extract-load-transform:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Set seasons variable
+        id: seasons
+        run: |
+          if [ -n "${{ github.event.inputs.seasons }}" ]; then
+            echo "value=${{ github.event.inputs.seasons }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "value=$(date +%Y)" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Extract teams
+        run: python -m extract.teams
+
+      - name: Extract players
+        run: python -m extract.players ${{ steps.seasons.outputs.value }}
+
+      - name: Extract games
+        run: python -m extract.games ${{ steps.seasons.outputs.value }}
+
+      - name: Extract season stats
+        run: python -m extract.season_stats ${{ steps.seasons.outputs.value }}
+
+      - name: Extract game logs
+        run: python -m extract.game_logs ${{ steps.seasons.outputs.value }}
+
+      - name: Extract Statcast
+        run: python -m extract.statcast ${{ steps.seasons.outputs.value }}
+
+      - name: Create dbt profiles.yml
+        run: |
+          mkdir -p ~/.dbt
+          cat <<EOF > ~/.dbt/profiles.yml
+          baseball_analytics:
+            target: prod
+            outputs:
+              prod:
+                type: snowflake
+                account: ${SNOWFLAKE_ACCOUNT}
+                user: ${SNOWFLAKE_USER}
+                password: ${SNOWFLAKE_PASSWORD}
+                database: BASEBALL_ANALYTICS
+                warehouse: BASEBALL_WH
+                schema: PUBLIC
+                threads: 4
+          EOF
+
+      - name: dbt deps
+        run: cd dbt && dbt deps
+
+      - name: dbt run
+        run: cd dbt && dbt run
+
+      - name: dbt test
+        run: cd dbt && dbt test
