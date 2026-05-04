@@ -15,7 +15,7 @@ st.set_page_config(
 
 @st.cache_resource
 def get_connection():
-    try:
+    if "snowflake" in st.secrets:
         creds = st.secrets["snowflake"]
         return snowflake.connector.connect(
             account=creds["account"],
@@ -24,17 +24,23 @@ def get_connection():
             database=creds["database"],
             warehouse=creds["warehouse"],
         )
-    except (FileNotFoundError, KeyError):
-        from dotenv import load_dotenv
 
-        load_dotenv()
-        return snowflake.connector.connect(
-            account=os.environ["SNOWFLAKE_ACCOUNT"],
-            user=os.environ["SNOWFLAKE_USER"],
-            password=os.environ["SNOWFLAKE_PASSWORD"],
-            database=os.environ.get("SNOWFLAKE_DATABASE", "BASEBALL_ANALYTICS"),
-            warehouse=os.environ.get("SNOWFLAKE_WAREHOUSE", "BASEBALL_WH"),
+    from dotenv import load_dotenv
+
+    load_dotenv()
+    if "SNOWFLAKE_ACCOUNT" not in os.environ:
+        st.error(
+            "Snowflake credentials not found. Add them to .streamlit/secrets.toml "
+            "or set SNOWFLAKE_* environment variables."
         )
+        st.stop()
+    return snowflake.connector.connect(
+        account=os.environ["SNOWFLAKE_ACCOUNT"],
+        user=os.environ["SNOWFLAKE_USER"],
+        password=os.environ["SNOWFLAKE_PASSWORD"],
+        database=os.environ.get("SNOWFLAKE_DATABASE", "BASEBALL_ANALYTICS"),
+        warehouse=os.environ.get("SNOWFLAKE_WAREHOUSE", "BASEBALL_WH"),
+    )
 
 
 @st.cache_data(ttl=3600)
