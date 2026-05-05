@@ -213,3 +213,6 @@ dbt/logs/
 
 # Project requirements
 docs/project_requirements-README.md
+
+# Streamlit secrets (local development)
+.streamlit/secrets.toml

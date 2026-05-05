@@ -74,9 +74,9 @@ The following directories will be added during the milestones — don't create t
 
 | Milestone | Due | Status |
 |---|---|---|
-| Proposal | 2026-04-13 | In progress — proposal.pdf + job-posting.pdf committed |
-| M01: Extract, Load & Transform | 2026-04-27 | Not started |
-| M02: Present & Polish | 2026-05-04 | Not started |
+| Proposal | 2026-04-13 | Complete |
+| M01: Extract, Load & Transform | 2026-04-27 | Complete |
+| M02: Present & Polish | 2026-05-04 | Complete |
 | Final submission + interview | 2026-05-11 | Not started |
 
 ## Conventions & Non-Negotiables
