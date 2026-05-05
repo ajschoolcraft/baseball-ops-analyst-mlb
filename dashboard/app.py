@@ -418,7 +418,7 @@ with tab3:
                     "Gap Score": "{:+.3f}",
                     "PA": "{:.0f}",
                 }
-            ).background_gradient(subset=["Gap Score"], cmap="RdYlGn"),
+            ),
             use_container_width=True,
             hide_index=True,
         )
