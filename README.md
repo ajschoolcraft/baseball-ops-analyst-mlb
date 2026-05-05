@@ -190,7 +190,7 @@ erDiagram
 
 ## Live Dashboard
 
-**URL:** [STREAMLIT_URL]
+**URL:** [baseball-ops-analyst-mlb.streamlit.app](https://baseball-ops-analyst-mlb-hn5ejgtfjdctxzaqyradfr.streamlit.app/)
 
 ## Knowledge Base
 
