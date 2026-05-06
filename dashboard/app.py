@@ -1,8 +1,8 @@
 import os
 
-import pandas as pd
 import plotly.express as px
 import plotly.graph_objects as go
+import pandas as pd
 import snowflake.connector
 import streamlit as st
 
@@ -15,7 +15,11 @@ st.set_page_config(
 
 @st.cache_resource
 def get_connection():
-    if "snowflake" in st.secrets:
+    try:
+        has_secrets = "snowflake" in st.secrets
+    except FileNotFoundError:
+        has_secrets = False
+    if has_secrets:
         creds = st.secrets["snowflake"]
         return snowflake.connector.connect(
             account=creds["account"],
@@ -46,7 +50,8 @@ def get_connection():
 @st.cache_data(ttl=3600)
 def load_season_batters():
     conn = get_connection()
-    return pd.read_sql(
+    cur = conn.cursor()
+    cur.execute(
         """
         SELECT
             s.player_id,
@@ -76,15 +81,16 @@ def load_season_batters():
         WHERE s.player_type = 'batter'
           AND s.xwoba IS NOT NULL
           AND s.plate_appearances > 0
-        """,
-        conn,
+        """
     )
+    return cur.fetch_pandas_all()
 
 
 @st.cache_data(ttl=3600)
 def load_game_stats(player_id, season):
     conn = get_connection()
-    return pd.read_sql(
+    cur = conn.cursor()
+    cur.execute(
         """
         SELECT
             g.game_date,
@@ -103,9 +109,9 @@ def load_game_stats(player_id, season):
           AND g.season = %s
         ORDER BY g.game_date
         """,
-        conn,
-        params=(int(player_id), int(season)),
+        (int(player_id), int(season)),
     )
+    return cur.fetch_pandas_all()
 
 
 # -- Sidebar --
