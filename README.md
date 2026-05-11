@@ -22,7 +22,7 @@ This project demonstrates SQL proficiency, Python-based data extraction, statist
 | Source 2 (Web scrape) | Firecrawl + requests/BeautifulSoup (FanGraphs, Baseball Savant, BP) |
 | Data Warehouse | Snowflake |
 | Transformation | dbt (staging + mart layers) |
-| Orchestration | GitHub Actions |
+| Orchestration | GitHub Actions (disabled — Snowflake trial expired; re-enable with fresh credentials) |
 | Dashboard | Streamlit |
 | Knowledge Base | Claude Code (scrape → synthesize → query) |
 
