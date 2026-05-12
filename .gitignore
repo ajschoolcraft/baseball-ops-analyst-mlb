@@ -211,8 +211,18 @@ dbt/dbt_packages/
 dbt/target/
 dbt/logs/
 
-# Project requirements
+# Class materials (not portfolio artifacts)
 docs/project_requirements-README.md
 
 # Streamlit secrets (local development)
 .streamlit/secrets.toml
+
+# macOS
+.DS_Store
+
+# Word temp files
+docs/~$*
+
+# Working docs (not portfolio artifacts)
+docs/*.docx
+docs/interview-script.md

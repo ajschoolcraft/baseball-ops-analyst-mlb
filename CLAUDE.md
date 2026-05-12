@@ -4,7 +4,7 @@ Project context for Claude Code sessions in this repo. Read this first before ma
 
 ## Project
 
-**Baseball Operations Analyst Portfolio — MLB Player Performance Analytics.** An end-to-end analytics engineering project built as the ISBA 4715 capstone. It is a public portfolio asset, not a throwaway class project — assume employers will read it.
+**Baseball Operations Analyst Portfolio — MLB Player Performance Analytics.** An end-to-end analytics engineering portfolio project. This is a public repo — assume employers will read it.
 
 **Target role (framing the work):** Baseball Operations Analyst, San Francisco Giants R&D team. The posting requires SQL, Python, statistical modeling on real datasets, prototyping tools/visualizations, and evaluating public baseball research. Every deliverable should map back to one of those skills.
 
@@ -59,38 +59,24 @@ Web scrapes (FanGraphs, BP, Statcast docs, etc.) ─► GitHub Actions ─► kn
 ## Repo Layout
 
 ```
-docs/              Proposal, job posting, templates, design specs
-  superpowers/     Superpowers skill outputs (e.g. design specs)
+extract/           Python extraction scripts
+dbt/               dbt project: staging + mart models, tests
+.github/workflows/ GitHub Actions pipelines
+dashboard/         Streamlit app
+knowledge/         Scraped sources and synthesized wiki
+docs/              Proposal, job posting, slides, resume
 ```
 
-The following directories will be added during the milestones — don't create them speculatively:
-- `extract/` — Python extraction scripts (M01)
-- `dbt/` — dbt project: staging + mart models, tests (M01)
-- `.github/workflows/` — GitHub Actions pipelines (M01)
-- `dashboard/` — Streamlit app (M02)
-- `knowledge/raw/` + `knowledge/wiki/` + `knowledge/index.md` — scraped sources and synthesized wiki (M02)
+## Conventions
 
-## Milestones
-
-| Milestone | Due | Status |
-|---|---|---|
-| Proposal | 2026-04-13 | Complete |
-| M01: Extract, Load & Transform | 2026-04-27 | Complete |
-| M02: Present & Polish | 2026-05-04 | Complete |
-| Final submission + interview | 2026-05-11 | Not started |
-
-## Conventions & Non-Negotiables
-
-- **No credentials in the repo, ever.** Snowflake creds, API keys, anything sensitive → `.env` (gitignored) locally and GitHub Actions secrets in CI. If you see a credential about to be committed, stop and flag it.
+- **No credentials in the repo, ever.** Snowflake creds, API keys, anything sensitive → `.env` (gitignored) locally and GitHub Actions secrets in CI.
 - **Public repo.** Every commit is visible to employers. Commit messages should be professional and explain the *why*.
-- **I have to explain everything in the final interview.** Don't silently introduce clever abstractions I can't defend. Prefer readable, conventional code over cute tricks. When in doubt, explain your reasoning in the chat so I can learn it.
-- **Use Superpowers skills proactively.** Brainstorming before design, TDD for code, systematic-debugging for bugs, verification-before-completion before claiming anything works. This project is graded partly on AI collaboration quality.
-- **Prefer editing existing files** over creating new ones. Don't scaffold speculative structure.
-- **Absolute dates only** when writing durable artifacts (docs, memory, commit messages). No "next week" / "Thursday."
+- **Prefer readable, conventional code** over clever abstractions. Standard analytics engineering patterns over sport-specific hacks.
+- **Prefer editing existing files** over creating new ones.
 
-## Knowledge Base (M02 — scaffold)
+## Knowledge Base
 
-Once `knowledge/` exists, querying it works like this:
+Querying the knowledge base works like this:
 
 1. **`knowledge/index.md`** is the entry point — it lists every wiki page with a one-line summary.
 2. **`knowledge/wiki/*.md`** are synthesized pages (overview, key metrics, Statcast methodology, player evaluation frameworks). Treat these as the authoritative synthesis — prefer quoting from them over re-deriving from raw sources.
@@ -102,4 +88,3 @@ Once `knowledge/` exists, querying it works like this:
 3. If the wiki is thin, grep `knowledge/raw/` for supporting material and synthesize.
 4. Always cite source files (`knowledge/wiki/key-metrics.md`, or the raw source filename). Never invent stats or sabermetric history — if it isn't in the knowledge base or a primary API, say so.
 
-This section will expand as the knowledge base gets built in Milestone 02.

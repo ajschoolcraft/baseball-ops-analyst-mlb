@@ -4,7 +4,7 @@
 
 An end-to-end analytics engineering pipeline that extracts MLB player performance data from public APIs, loads it into Snowflake, transforms it through dbt into a star schema, and surfaces insights through a Streamlit dashboard — comparing traditional batting stats to Statcast advanced metrics to identify undervalued and overvalued players across the league.
 
-Built as a portfolio project for ISBA 4715 (capstone), targeting a Baseball Operations Analyst role.
+Built as a portfolio project targeting a Baseball Operations Analyst role.
 
 ## Job Posting
 
