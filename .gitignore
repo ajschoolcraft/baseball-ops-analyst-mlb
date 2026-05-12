@@ -214,6 +214,10 @@ dbt/logs/
 # Class materials (not portfolio artifacts)
 docs/project_requirements-README.md
 
+# Snowflake key-pair auth
+.snowflake_key.p8
+.snowflake_key.pub
+
 # Streamlit secrets (local development)
 .streamlit/secrets.toml
 

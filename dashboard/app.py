@@ -1,5 +1,6 @@
 import os
 
+from cryptography.hazmat.primitives import serialization
 import plotly.express as px
 import plotly.graph_objects as go
 import pandas as pd
@@ -13,6 +14,10 @@ st.set_page_config(
 )
 
 
+def _load_private_key(key_text):
+    return serialization.load_pem_private_key(key_text.encode(), password=None)
+
+
 @st.cache_resource
 def get_connection():
     try:
@@ -21,13 +26,17 @@ def get_connection():
         has_secrets = False
     if has_secrets:
         creds = st.secrets["snowflake"]
-        return snowflake.connector.connect(
+        connect_args = dict(
             account=creds["account"],
             user=creds["user"],
-            password=creds["password"],
             database=creds["database"],
             warehouse=creds["warehouse"],
         )
+        if "private_key" in creds:
+            connect_args["private_key"] = _load_private_key(creds["private_key"])
+        else:
+            connect_args["password"] = creds["password"]
+        return snowflake.connector.connect(**connect_args)
 
     from dotenv import load_dotenv
 
@@ -38,13 +47,21 @@ def get_connection():
             "or set SNOWFLAKE_* environment variables."
         )
         st.stop()
-    return snowflake.connector.connect(
+    connect_args = dict(
         account=os.environ["SNOWFLAKE_ACCOUNT"],
         user=os.environ["SNOWFLAKE_USER"],
-        password=os.environ["SNOWFLAKE_PASSWORD"],
         database=os.environ.get("SNOWFLAKE_DATABASE", "BASEBALL_ANALYTICS"),
         warehouse=os.environ.get("SNOWFLAKE_WAREHOUSE", "BASEBALL_WH"),
     )
+    key_path = os.environ.get("SNOWFLAKE_PRIVATE_KEY_PATH")
+    if key_path:
+        with open(key_path, "rb") as f:
+            connect_args["private_key"] = serialization.load_pem_private_key(
+                f.read(), password=None
+            )
+    else:
+        connect_args["password"] = os.environ["SNOWFLAKE_PASSWORD"]
+    return snowflake.connector.connect(**connect_args)
 
 
 @st.cache_data(ttl=3600)
