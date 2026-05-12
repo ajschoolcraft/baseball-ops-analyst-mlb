@@ -91,4 +91,5 @@ models:
           combination_of_columns:
             - player_id
             - season
+            - team_id
             - player_type

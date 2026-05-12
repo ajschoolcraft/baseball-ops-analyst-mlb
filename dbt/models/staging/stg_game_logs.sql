@@ -5,6 +5,7 @@ with source as (
 renamed as (
     select
         player_id,
+        player_name,
         game_id,
         try_to_date(game_date) as game_date,
         season,
