@@ -1,3 +1,4 @@
+import base64
 import os
 
 from cryptography.hazmat.primitives import serialization
@@ -14,8 +15,12 @@ st.set_page_config(
 )
 
 
-def _load_private_key(key_text):
-    return serialization.load_pem_private_key(key_text.encode(), password=None)
+def _load_private_key(key_data):
+    if key_data.startswith("-----"):
+        pem_bytes = key_data.encode()
+    else:
+        pem_bytes = base64.b64decode(key_data)
+    return serialization.load_pem_private_key(pem_bytes, password=None)
 
 
 @st.cache_resource
