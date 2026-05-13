@@ -20,7 +20,12 @@ def _load_private_key(key_data):
         pem_bytes = key_data.encode()
     else:
         pem_bytes = base64.b64decode(key_data)
-    return serialization.load_pem_private_key(pem_bytes, password=None)
+    key = serialization.load_pem_private_key(pem_bytes, password=None)
+    return key.private_bytes(
+        encoding=serialization.Encoding.DER,
+        format=serialization.PrivateFormat.PKCS8,
+        encryption_algorithm=serialization.NoEncryption(),
+    )
 
 
 @st.cache_resource
