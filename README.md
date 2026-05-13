@@ -1,6 +1,6 @@
 # Baseball Operations Analyst — MLB Player Performance Analytics
 
-**[Live Dashboard](https://baseball-ops-analyst-mlb-hn5ejgtfjdctxzaqyradfr.streamlit.app/)**
+**[Live Dashboard](https://baseball-ops-analyst-mlbgit-7q4qfy2ienpextvrmyzz4f.streamlit.app/)**
 
 An end-to-end analytics engineering pipeline that extracts MLB player performance data from public APIs, loads it into Snowflake, transforms it through dbt into a star schema, and surfaces insights through a Streamlit dashboard — comparing traditional batting stats to Statcast advanced metrics to identify undervalued and overvalued players across the league.
 
@@ -192,7 +192,7 @@ erDiagram
 
 ## Live Dashboard
 
-**URL:** [baseball-ops-analyst-mlb.streamlit.app](https://baseball-ops-analyst-mlb-hn5ejgtfjdctxzaqyradfr.streamlit.app/)
+**URL:** [baseball-ops-analyst-mlb.streamlit.app](https://baseball-ops-analyst-mlbgit-7q4qfy2ienpextvrmyzz4f.streamlit.app/)
 
 ## Knowledge Base
 
