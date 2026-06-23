@@ -1,5 +1,6 @@
 import base64
 import os
+import pathlib
 
 from cryptography.hazmat.primitives import serialization
 import plotly.express as px
@@ -7,6 +8,8 @@ import plotly.graph_objects as go
 import pandas as pd
 import snowflake.connector
 import streamlit as st
+
+_DATA_DIR = pathlib.Path(__file__).parent / "data"
 
 st.set_page_config(
     page_title="MLB Analytics: Traditional vs. Advanced Metrics",
@@ -34,111 +37,137 @@ def get_connection():
         has_secrets = "snowflake" in st.secrets
     except FileNotFoundError:
         has_secrets = False
-    if has_secrets:
-        creds = st.secrets["snowflake"]
-        connect_args = dict(
-            account=creds["account"],
-            user=creds["user"],
-            database=creds["database"],
-            warehouse=creds["warehouse"],
-        )
-        if "private_key" in creds:
-            connect_args["private_key"] = _load_private_key(creds["private_key"])
-        else:
-            connect_args["password"] = creds["password"]
-        return snowflake.connector.connect(**connect_args)
-
-    from dotenv import load_dotenv
-
-    load_dotenv()
-    if "SNOWFLAKE_ACCOUNT" not in os.environ:
-        st.error(
-            "Snowflake credentials not found. Add them to .streamlit/secrets.toml "
-            "or set SNOWFLAKE_* environment variables."
-        )
-        st.stop()
-    connect_args = dict(
-        account=os.environ["SNOWFLAKE_ACCOUNT"],
-        user=os.environ["SNOWFLAKE_USER"],
-        database=os.environ.get("SNOWFLAKE_DATABASE", "BASEBALL_ANALYTICS"),
-        warehouse=os.environ.get("SNOWFLAKE_WAREHOUSE", "BASEBALL_WH"),
-    )
-    key_path = os.environ.get("SNOWFLAKE_PRIVATE_KEY_PATH")
-    if key_path:
-        with open(key_path, "rb") as f:
-            connect_args["private_key"] = serialization.load_pem_private_key(
-                f.read(), password=None
+    try:
+        if has_secrets:
+            creds = st.secrets["snowflake"]
+            connect_args = dict(
+                account=creds["account"],
+                user=creds["user"],
+                database=creds["database"],
+                warehouse=creds["warehouse"],
             )
-    else:
-        connect_args["password"] = os.environ["SNOWFLAKE_PASSWORD"]
-    return snowflake.connector.connect(**connect_args)
+            if "private_key" in creds:
+                connect_args["private_key"] = _load_private_key(creds["private_key"])
+            else:
+                connect_args["password"] = creds["password"]
+            return snowflake.connector.connect(**connect_args)
+
+        from dotenv import load_dotenv
+
+        load_dotenv()
+        if "SNOWFLAKE_ACCOUNT" not in os.environ:
+            return None
+        connect_args = dict(
+            account=os.environ["SNOWFLAKE_ACCOUNT"],
+            user=os.environ["SNOWFLAKE_USER"],
+            database=os.environ.get("SNOWFLAKE_DATABASE", "BASEBALL_ANALYTICS"),
+            warehouse=os.environ.get("SNOWFLAKE_WAREHOUSE", "BASEBALL_WH"),
+        )
+        key_path = os.environ.get("SNOWFLAKE_PRIVATE_KEY_PATH")
+        if key_path:
+            with open(key_path, "rb") as f:
+                connect_args["private_key"] = serialization.load_pem_private_key(
+                    f.read(), password=None
+                )
+        else:
+            connect_args["password"] = os.environ["SNOWFLAKE_PASSWORD"]
+        return snowflake.connector.connect(**connect_args)
+    except Exception:
+        return None
 
 
 @st.cache_data(ttl=3600)
 def load_season_batters():
     conn = get_connection()
-    cur = conn.cursor()
-    cur.execute(
-        """
-        SELECT
-            s.player_id,
-            p.full_name,
-            t.name AS team_name,
-            t.abbreviation AS team_abbr,
-            s.season,
-            s.plate_appearances,
-            s.at_bats,
-            s.hits,
-            s.batting_avg,
-            s.on_base_pct,
-            s.slugging_pct,
-            s.ops,
-            s.babip,
-            s.home_runs,
-            s.strikeouts,
-            s.walks,
-            s.xwoba,
-            s.barrel_pct,
-            s.avg_exit_velocity,
-            s.avg_launch_angle,
-            s.xwoba - s.batting_avg AS gap_score
-        FROM MART.FCT_PLAYER_SEASON_STATS s
-        JOIN MART.DIM_PLAYERS p ON s.player_id = p.player_id
-        JOIN MART.DIM_TEAMS t ON s.team_id = t.team_id
-        WHERE s.player_type = 'batter'
-          AND s.xwoba IS NOT NULL
-          AND s.plate_appearances > 0
-        """
-    )
-    return cur.fetch_pandas_all()
+    if conn is not None:
+        try:
+            cur = conn.cursor()
+            cur.execute(
+                """
+                SELECT
+                    s.player_id,
+                    p.full_name,
+                    t.name AS team_name,
+                    t.abbreviation AS team_abbr,
+                    s.season,
+                    s.plate_appearances,
+                    s.at_bats,
+                    s.hits,
+                    s.batting_avg,
+                    s.on_base_pct,
+                    s.slugging_pct,
+                    s.ops,
+                    s.babip,
+                    s.home_runs,
+                    s.strikeouts,
+                    s.walks,
+                    s.xwoba,
+                    s.barrel_pct,
+                    s.avg_exit_velocity,
+                    s.avg_launch_angle,
+                    s.xwoba - s.batting_avg AS gap_score
+                FROM MART.FCT_PLAYER_SEASON_STATS s
+                JOIN MART.DIM_PLAYERS p ON s.player_id = p.player_id
+                JOIN MART.DIM_TEAMS t ON s.team_id = t.team_id
+                WHERE s.player_type = 'batter'
+                  AND s.xwoba IS NOT NULL
+                  AND s.plate_appearances > 0
+                """
+            )
+            return cur.fetch_pandas_all()
+        except Exception:
+            pass
+
+    path = _DATA_DIR / "season_batters.csv"
+    if not path.exists():
+        st.error("No data available. See README for setup instructions.")
+        st.stop()
+    df = pd.read_csv(path)
+    df = df.dropna(subset=["XWOBA"])
+    return df
 
 
 @st.cache_data(ttl=3600)
 def load_game_stats(player_id, season):
     conn = get_connection()
-    cur = conn.cursor()
-    cur.execute(
-        """
-        SELECT
-            g.game_date,
-            g.at_bats,
-            g.hits,
-            g.home_runs,
-            g.walks,
-            g.strikeouts,
-            g.plate_appearances,
-            g.avg_xwoba,
-            g.barrel_count,
-            g.avg_exit_velocity,
-            g.batted_ball_events
-        FROM MART.FCT_PLAYER_GAME_STATS g
-        WHERE g.player_id = %s
-          AND g.season = %s
-        ORDER BY g.game_date
-        """,
-        (int(player_id), int(season)),
+    if conn is not None:
+        try:
+            cur = conn.cursor()
+            cur.execute(
+                """
+                SELECT
+                    g.game_date,
+                    g.at_bats,
+                    g.hits,
+                    g.home_runs,
+                    g.walks,
+                    g.strikeouts,
+                    g.plate_appearances,
+                    g.avg_xwoba,
+                    g.barrel_count,
+                    g.avg_exit_velocity,
+                    g.batted_ball_events
+                FROM MART.FCT_PLAYER_GAME_STATS g
+                WHERE g.player_id = %s
+                  AND g.season = %s
+                ORDER BY g.game_date
+                """,
+                (int(player_id), int(season)),
+            )
+            return cur.fetch_pandas_all()
+        except Exception:
+            pass
+
+    path = _DATA_DIR / "game_stats.csv"
+    if not path.exists():
+        return pd.DataFrame()
+    df = pd.read_csv(path, parse_dates=["GAME_DATE"])
+    return (
+        df[(df["PLAYER_ID"] == int(player_id)) & (df["SEASON"] == int(season))]
+        .drop(columns=["PLAYER_ID", "SEASON"])
+        .sort_values("GAME_DATE")
+        .reset_index(drop=True)
     )
-    return cur.fetch_pandas_all()
 
 
 # -- Sidebar --
