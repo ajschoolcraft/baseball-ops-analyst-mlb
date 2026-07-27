@@ -2,7 +2,7 @@ Source: https://library.fangraphs.com/misc/war/
 
 # [What is WAR?](https://library.fangraphs.com/misc/war/ "Permanent link to What is WAR?")
 
-by [Piper Slowinski](https://library.fangraphs.com/author/steve-slow/ "Posts by Piper Slowinski")
+by [Piper Slowinski](https://library.fangraphs.com/author/steve-slow/)
 
 February 15, 2010
 

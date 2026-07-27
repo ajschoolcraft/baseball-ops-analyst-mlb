@@ -2,7 +2,7 @@ Source: https://library.fangraphs.com/pitching/babip/
 
 # [BABIP](https://library.fangraphs.com/pitching/babip/ "Permanent link to BABIP")
 
-by [Piper Slowinski](https://library.fangraphs.com/author/steve-slow/ "Posts by Piper Slowinski")
+by [Piper Slowinski](https://library.fangraphs.com/author/steve-slow/)
 
 February 16, 2010
 

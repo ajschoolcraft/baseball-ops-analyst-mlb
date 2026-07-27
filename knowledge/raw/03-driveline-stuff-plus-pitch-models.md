@@ -1,5 +1,7 @@
 Source: https://www.drivelinebaseball.com/2021/12/what-is-stuff-quantifying-pitches-with-pitch-models/
 
+---
+
 ## Pitch Design: What is Stuff+? Quantifying Pitches with Pitch Models
 
 December 13, 2021By Driveline Baseball
@@ -307,19 +309,19 @@ Share
 
 Link copied to clipboard
 
-### Recent articles
+### Recent Blog Posts
 
-## [Building an In-Season Training Routine for Starting Pitchers – Part II](/blogs/blog/building-season-training-routine-starting-pitchers-part-ii "Building an In-Season Training Routine for Starting Pitchers – Part II")
+## [The incredible development gains of Parker Eastwood Lilles](/blogs/blog/parker-eastwood-lilles-driveline-bat-speed-gains "The incredible development gains of Parker Eastwood Lilles")
 
-May 25, 2026
+July 23, 2026
 
-## [How in the heck has Fernando Tatis Jr. not homered yet? A forensic swing investigation](/blogs/blog/fernando-tatis-jr-no-home-runs-swing-investigation "How in the heck has Fernando Tatis Jr. not homered yet? A forensic swing investigation")
+## [How pros use PULSE and what it means for the rest of baseball](/blogs/blog/how-pros-use-pulse-and-what-it-means-for-baseball "How pros use PULSE and what it means for the rest of baseball")
 
-May 15, 2026
+July 21, 2026
 
-## [How Janson Junk found another level and a higher cruising speed](/blogs/blog/how-janson-junk-found-another-level-and-a-higher-cruising-speed "How Janson Junk found another level and a higher cruising speed")
+## [Antone’s return from a third TJS is providing hope and a road map for arms](/blogs/blog/tejay-antone-third-tjs-return "Antone’s return from a third TJS is providing hope and a road map for arms")
 
-May 07, 2026
+July 21, 2026
 
 ### Leave a comment
 

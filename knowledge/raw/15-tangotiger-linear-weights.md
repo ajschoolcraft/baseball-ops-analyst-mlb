@@ -2,7 +2,7 @@ Source: https://library.fangraphs.com/principles/linear-weights/
 
 # [Linear Weights](https://library.fangraphs.com/principles/linear-weights/ "Permanent link to Linear Weights")
 
-by [Piper Slowinski](https://library.fangraphs.com/author/steve-slow/ "Posts by Piper Slowinski")
+by [Piper Slowinski](https://library.fangraphs.com/author/steve-slow/)
 
 February 25, 2010
 

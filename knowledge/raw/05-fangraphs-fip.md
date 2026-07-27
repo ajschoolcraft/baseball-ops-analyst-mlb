@@ -2,7 +2,7 @@ Source: https://library.fangraphs.com/pitching/fip/
 
 # [FIP](https://library.fangraphs.com/pitching/fip/ "Permanent link to FIP")
 
-by [Piper Slowinski](https://library.fangraphs.com/author/steve-slow/ "Posts by Piper Slowinski")
+by [Piper Slowinski](https://library.fangraphs.com/author/steve-slow/)
 
 February 15, 2010
 

@@ -2,7 +2,7 @@ Source: https://library.fangraphs.com/offense/ops/
 
 # [OPS and OPS+](https://library.fangraphs.com/offense/ops/ "Permanent link to OPS and OPS+")
 
-by [Piper Slowinski](https://library.fangraphs.com/author/steve-slow/ "Posts by Piper Slowinski")
+by [Piper Slowinski](https://library.fangraphs.com/author/steve-slow/)
 
 February 16, 2010
 

@@ -2,7 +2,7 @@ Source: https://library.fangraphs.com/offense/woba/
 
 # [wOBA](https://library.fangraphs.com/offense/woba/ "Permanent link to wOBA")
 
-by [Piper Slowinski](https://library.fangraphs.com/author/steve-slow/ "Posts by Piper Slowinski")
+by [Piper Slowinski](https://library.fangraphs.com/author/steve-slow/)
 
 February 15, 2010
 

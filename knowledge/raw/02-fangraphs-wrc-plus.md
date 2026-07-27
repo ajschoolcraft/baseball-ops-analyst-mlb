@@ -2,7 +2,7 @@ Source: https://library.fangraphs.com/offense/wrc/
 
 # [wRC and wRC+](https://library.fangraphs.com/offense/wrc/ "Permanent link to wRC and wRC+")
 
-by [Piper Slowinski](https://library.fangraphs.com/author/steve-slow/ "Posts by Piper Slowinski")
+by [Piper Slowinski](https://library.fangraphs.com/author/steve-slow/)
 
 February 16, 2010
 
