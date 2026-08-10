@@ -311,15 +311,15 @@ Link copied to clipboard
 
 ### Recent Blog Posts
 
+## ["We dove all in": How a small Indiana high school built a modern hitting development machine – with a little help from us](/blogs/blog/bluffton-high-school-hitting-development "\"We dove all in\": How a small Indiana high school built a modern hitting development machine – with a little help from us")
+
+August 05, 2026
+
 ## [The incredible development gains of Parker Eastwood Lilles](/blogs/blog/parker-eastwood-lilles-driveline-bat-speed-gains "The incredible development gains of Parker Eastwood Lilles")
 
 July 23, 2026
 
 ## [How pros use PULSE and what it means for the rest of baseball](/blogs/blog/how-pros-use-pulse-and-what-it-means-for-baseball "How pros use PULSE and what it means for the rest of baseball")
-
-July 21, 2026
-
-## [Antone’s return from a third TJS is providing hope and a road map for arms](/blogs/blog/tejay-antone-third-tjs-return "Antone’s return from a third TJS is providing hope and a road map for arms")
 
 July 21, 2026
 
