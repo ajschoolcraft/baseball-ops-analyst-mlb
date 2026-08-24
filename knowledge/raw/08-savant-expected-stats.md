@@ -49,6 +49,7 @@ Catcher Framing
 Catcher Pop Time
 Catcher Stance
 Catcher Throwing
+First Base Receiving
 Outfield Catch Probability
 Outfield Directional OAA
 Outfielder Jump
