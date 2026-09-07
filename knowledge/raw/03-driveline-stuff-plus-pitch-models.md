@@ -311,6 +311,10 @@ Link copied to clipboard
 
 ### Recent Blog Posts
 
+## [How a struggling JUCO player worked with Driveline to reach his dream of becoming a Division I player](/blogs/blog/michael-clarkson-juco-to-division-1 "How a struggling JUCO player worked with Driveline to reach his dream of becoming a Division I player")
+
+September 04, 2026
+
 ## [Is the vertical slider the next big thing in pitch design?](/blogs/blog/vertical-slider-pitch-design "Is the vertical slider the next big thing in pitch design?")
 
 August 21, 2026
@@ -318,10 +322,6 @@ August 21, 2026
 ## ["We dove all in": How a small Indiana high school built a modern hitting development machine – with a little help from us](/blogs/blog/bluffton-high-school-hitting-development "\"We dove all in\": How a small Indiana high school built a modern hitting development machine – with a little help from us")
 
 August 05, 2026
-
-## [The incredible development gains of Parker Eastwood Lilles](/blogs/blog/parker-eastwood-lilles-driveline-bat-speed-gains "The incredible development gains of Parker Eastwood Lilles")
-
-July 23, 2026
 
 ### Leave a comment
 
