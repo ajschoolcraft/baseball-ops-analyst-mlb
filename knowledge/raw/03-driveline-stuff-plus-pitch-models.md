@@ -311,6 +311,10 @@ Link copied to clipboard
 
 ### Recent Blog Posts
 
+## [Building an 'A Swing': a swing for all fields](/blogs/blog/building-an-a-swing "Building an 'A Swing': a swing for all fields")
+
+November 13, 2026
+
 ## [What Command Actually Is, and How to Train It](/blogs/blog/command-and-training-it-might-not-be-what-you-think "What Command Actually Is, and How to Train It")
 
 October 22, 2026
@@ -318,10 +322,6 @@ October 22, 2026
 ## [Slump Busting: How Travis Bazzana Turned His September Around](/blogs/blog/slump-busting-how-travis-bazzana-turned-his-september-around "Slump Busting: How Travis Bazzana Turned His September Around")
 
 October 06, 2026
-
-## [What Does a Pitcher's Body Actually Look Like?](/blogs/blog/what-does-a-pitchers-body-actually-look-like "What Does a Pitcher's Body Actually Look Like?")
-
-September 25, 2026
 
 ### Leave a comment
 
